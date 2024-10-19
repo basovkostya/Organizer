@@ -1,0 +1,19 @@
+@media(max-width: 1200px){
+    .left-menu{
+        height: 100dvh;
+        width: 0;
+        position: absolute;
+        box-shadow: none;
+        transition: 0.5s;
+    }
+    .content-wrapper{
+        margin-left: 0;
+        transition: 0.5s;
+    }
+    .left-menu.hide {
+        transition: 0.5s;
+        width: 240px;
+        position: fixed;
+        z-index: 99;
+    }
+}

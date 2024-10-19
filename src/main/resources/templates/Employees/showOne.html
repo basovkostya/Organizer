@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Новый сотрудник</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" th:href="@{/css/data-table/jquery.dataTables.css}"/>
+    <link rel="stylesheet" th:href="@{/css/layers.css}"/>
+    <link rel="stylesheet" th:href="@{/css/sass.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:insert="~{fragments/navbar :: header}"></div>
+    <div th:insert="~{fragments/sidebar :: sidebar}"></div>
+    <div class="content-wrapper">
+        <section class="dashboard-top-sec">
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col">
+                        <div class="employee-view">
+                            <div class="card">
+                                <div class="employee-view-head text-white d-flex flex-row">
+                                    <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                             alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                             style="width: 150px; z-index: 1">
+                                        <a href="" class="primary-btn">Добавить</a>
+                                    </div>
+                                    <div class="ms-3" style="margin-top: 120px;">
+                                        <h5 th:text="${employee.getFirstName()}">First Name</h5>
+                                        <h5 th:text="${employee.getLastName()}">Last Name</h5>
+                                        <h5 th:text="${employee.getSurName()}">Sur Name</h5>
+                                    </div>
+                                </div>
+                                <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                                    <div class="d-flex justify-content-end text-center py-1">
+                                        <div>
+                                            <p class="mb-1 h5">253</p>
+                                            <p class="small text-muted mb-0">Photos</p>
+                                        </div>
+                                        <div class="px-3">
+                                            <p class="mb-1 h5">1026</p>
+                                            <p class="small text-muted mb-0">Followers</p>
+                                        </div>
+                                        <div>
+                                            <p class="mb-1 h5">478</p>
+                                            <p class="small text-muted mb-0">Following</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-4 text-black">
+                                    <div class="mb-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <p class="lead fw-normal mb-1">Персональные данные</p>
+                                            <p class="mb-0"><a th:href="@{/employees/edit/{id}(id=${employee.getId()})}" class="text-muted"><i class="fa-solid fa-pen-to-square"></i> Редактировать</a></p>
+                                        </div>
+                                        <div class="p-4" style="background-color: #f8f9fa;">
+                                            <div class="col-mg-6 spacing-col mb-1">
+                                                <p class="font-italic">Электронный адрес:</p>
+                                                <p th:text="${employee.getEmail()}" class="font-italic mb-0">Text</p>
+                                            </div>
+                                            <div class="col-md-6 spacing-col mb-1">
+                                                <p class="font-italic">Снилс:</p>
+                                                <p th:text="${employee.getSnils()}" class="font-italic mb-0">Text</p>
+                                            </div>
+                                            <div class="col-md-6 spacing-col mb-1">
+                                                <p class="font-italic">Номер телефона:</p>
+                                                <p th:text="${employee.getPhoneNumber()}" class="font-italic mb-0">
+                                                    Text</p>
+                                            </div>
+                                            <div class="col-md-6 spacing-col mb-1">
+                                                <p class="font-italic">Пол:</p>
+                                                <p th:text="${employee.getSex()}" class="font-italic mb-0">Text</p>
+                                            </div>
+                                            <div class="col-md-6 spacing-col mb-1">
+                                                <p class="font-italic">Серия и номер паспорта:</p>
+                                                <p th:text="${employee.getPassportNumber()}" class="font-italic mb-0">
+                                                    Text</p>
+                                            </div>
+                                            <div class="col-md-6 spacing-col mb-1">
+                                                <p class="font-italic">Дата рождения:</p>
+                                                <p th:text="${#dates.format(employee.getBirthday(), 'dd MMM yyyy')}"
+                                                   class="font-italic mb-0">Text</p>
+                                            </div>
+                                            <div class="col-md-6 spacing-col mb-1">
+                                                <p class="font-italic">Возраст:</p>
+                                                <p th:text="${employee.getAge()}" class="font-italic mb-0">Text</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--                                    <div class="d-flex justify-content-between align-items-center mb-4">-->
+                                    <!--                                        <p class="lead fw-normal mb-0">Recent photos</p>-->
+                                    <!--                                        <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="row g-2">-->
+                                    <!--                                        <div class="col mb-2">-->
+                                    <!--                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"-->
+                                    <!--                                                 alt="image 1" class="w-100 rounded-3">-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="col mb-2">-->
+                                    <!--                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"-->
+                                    <!--                                                 alt="image 1" class="w-100 rounded-3">-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="row g-2">-->
+                                    <!--                                        <div class="col">-->
+                                    <!--                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"-->
+                                    <!--                                                 alt="image 1" class="w-100 rounded-3">-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="col">-->
+                                    <!--                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"-->
+                                    <!--                                                 alt="image 1" class="w-100 rounded-3">-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/data-table/jquery.dataTables.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

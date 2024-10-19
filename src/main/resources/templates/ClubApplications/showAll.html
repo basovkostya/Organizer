@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Заявки на клубы</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="css/data-table/jquery.dataTables.css"/>
+    <link rel="stylesheet" href="css/layers.css"/>
+    <link rel="stylesheet" href="css/sass.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:insert="~{fragments/navbar :: header}"></div>
+    <div th:insert="~{fragments/sidebar :: sidebar}"></div>
+    <div class="content-wrapper">
+        <section class="dashboard-top-sec">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="employee-list">
+                            <div class="page-header d-flex justify-content-between">
+                                <p class="modal-title fs-5">Заявки на клуб</p>
+                                <a th:href="@{/clubApplications/new}" class="primary-btn">Добавить</a>
+                            </div>
+                            <div class="data-table-section table-responsive">
+                                <table id="employee-table" class="table table-striped" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Название</th>
+                                        <th>Регион</th>
+                                        <th>Цвет формы</th>
+                                        <th>Возрастная категория</th>
+                                        <th>Пол</th>
+                                        <th>Статус</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="clubApplication: ${clubApplications}">
+                                        <td th:text="${clubApplication.getName()}"></td>
+                                        <td th:text="${clubApplication.getRegion()}"></td>
+                                        <td><input class="form-control form-control-color" type="color" th:value="${clubApplication.getShapeColor()}" disabled></td>
+                                        <td th:text="'до '+${clubApplication.getAge()}"></td>
+                                        <td th:text="${clubApplication.getSex()}"></td>
+                                        <td th:text="${clubApplication.getStatus()}"></td>
+                                        <td>
+                                            <a th:href="@{/clubApplications/view/{id}(id=${clubApplication.getId()})}"
+                                               th:method="GET"><i class="action-i-view fa-solid fa-eye fa-lg"></i></a>
+                                            <a th:href="@{/clubApplications/edit/{id}(id=${clubApplication.getId()})}"
+                                               th:method="GET"><i
+                                                    class="action-i-edit fa-solid fa-pen-to-square fa-lg"></i></a>
+                                            <a id="deleteButtonClubApp"
+                                               th:href="@{/clubApplications/delete/{id}(id=${clubApplication.getId()})}"
+                                               data-bs-toggle="modal" data-bs-target="#deleteClubApp"
+                                               th:data-bs-Id="${clubApplication.getId()}"><i
+                                                    class="action-i-delete fa-solid fa-trash fa-lg"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteClubApp" tabindex="-1" aria-labelledby="deleteClubAppLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteClubAppLabel">Удалить заявку</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span class="clubApp-name">Вы действительно хотите удалить заявку: </span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="back-btn" data-bs-dismiss="modal">Закрыть</a>
+                <a href="" type="submit" id="delRefClubApp" class="delete-btn">
+                    Удалить
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/data-table/jquery.dataTables.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Новый сотрудник</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" th:href="@{/css/data-table/jquery.dataTables.css}"/>
+    <link rel="stylesheet" th:href="@{/css/layers.css}"/>
+    <link rel="stylesheet" th:href="@{/css/sass.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:insert="~{fragments/navbar :: header}"></div>
+    <div th:insert="~{fragments/sidebar :: sidebar}"></div>
+    <div class="content-wrapper">
+        <section class="dashboard-top-sec">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="employee-list">
+                            <div class="page-header d-flex justify-content-between">
+                                <p class="modal-title fs-5">Новая заявка на мероприятие</p>
+                            </div>
+                            <form class="row g-3" th:method="POST" th:action="@{/eventApplications}"
+                                  th:object="${eventApplication}">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="main">Тип мероприятия</label>
+                                    <select id="main" name="main" class="form-select" th:field="*{eventType}"
+                                            th:onchange="Selected(this.value)">
+                                        <option th:each="eventType : ${eventTypes}" th:value="${eventType.name}"
+                                                th:text="${eventType.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                                <hr>
+
+                                <div id="tournament" class="box g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="sportType">Вид спорта</label>
+                                        <select class="form-select" th:field="*{sportType}" id="sportType">
+                                            <option th:each="sportType : ${sportTypes}" th:value="${sportType.name}"
+                                                    th:text="${sportType.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="tournamentType">Тип турнира</label>
+                                        <select class="form-select" th:field="*{tournamentType}" id="tournamentType">
+                                            <option th:each="tournamentType : ${tournamentTypes}"
+                                                    th:value="${tournamentType.name}"
+                                                    th:text="${tournamentType.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="dateFrom" class="form-label">Дата начала проведения</label>
+                                        <input class="form-control" type="datetime-local" th:field="*{dateFrom}"
+                                               id="dateFrom"/>
+                                        <div style="color:red" th:if="${#fields.hasErrors('dateFrom')}"
+                                             th:errors="*{dateFrom}">Name error
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dateTo" class="form-label">Дата окончания проведения</label>
+                                        <input class="form-control" type="datetime-local" th:field="*{dateTo}" id="dateTo"/>
+                                        <div style="color:red" th:if="${#fields.hasErrors('dateTo')}"
+                                             th:errors="*{dateTo}">Name error
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div id="otherType" class="box">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Количество участников</label>
+                                        <div class="spacing-col">
+                                            <label for="participantsFrom" class="form-label">От</label>
+                                            <input class="form-control" type="number" th:field="*{participantsFrom}"
+                                                   id="participantsFrom"/>
+                                            <label for="participantsTo" class="form-label">До</label>
+                                            <input class="form-control" type="number" th:field="*{participantsTo}"
+                                                   id="participantsTo"/>
+                                        </div>
+                                        <div style="color:red" th:if="${#fields.hasErrors('participantsFrom')}"
+                                             th:errors="*{participantsFrom}">Name error
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Стоимость</label>
+                                        <div class="spacing-col">
+                                            <input class="form-control" type="number" th:field="*{price}"
+                                                   id="price"/>
+                                            <label for="currency" class="form-label">Валюта</label>
+                                            <select class="form-select" th:field="*{currency}" id="currency">
+                                                <option th:each="currency : ${currencies}" th:value="${currency.name}"
+                                                        th:text="${currency.name}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div style="color:red" th:if="${#fields.hasErrors('price')}"
+                                             th:errors="*{price}">Name error
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dateEvent" class="form-label">Дата проведения</label>
+                                        <input class="form-control" type="datetime-local" th:field="*{dateEvent}" id="dateEvent"/>
+                                        <div style="color:red" th:if="${#fields.hasErrors('dateEvent')}"
+                                             th:errors="*{dateEvent}">Name error
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="divisionIntoTeams" class="form-label">Необходимо ли деление на команды</label>
+                                        <input class="form-control" type="checkbox" th:field="*{divisionIntoTeams}" id="divisionIntoTeams"/>
+                                        <div style="color:red" th:if="${#fields.hasErrors('divisionIntoTeams')}"
+                                             th:errors="*{divisionIntoTeams}">Name error
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Наименование</label>
+                                    <input class="form-control" type="text" th:field="*{name}" id="name"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('name')}"
+                                         th:errors="*{name}">Name error
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="place" class="form-label">Место проведения</label>
+                                    <input class="form-control" type="text" th:field="*{place}" id="place"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('place')}"
+                                         th:errors="*{place}">Name error
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="applicationDeadline" class="form-label">Срок приема заявок</label>
+                                    <input class="form-control" type="datetime-local"
+                                           th:field="*{applicationDeadline}" id="applicationDeadline"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('applicationDeadline')}"
+                                         th:errors="*{applicationDeadline}">Name error
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fullName" class="form-label">ФИО организации</label>
+                                    <input class="form-control" type="text" th:field="*{fullName}"
+                                           id="fullName"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('fullName')}"
+                                         th:errors="*{fullName}">Name error
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="description" class="form-label">Описание</label>
+                                    <textarea class="form-control" type="text" th:field="*{description}"
+                                              id="description"
+                                              onkeyup="$(this).height(5);$(this).height($(this).prop('scrollHeight'))"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('description')}"
+                                         th:errors="*{description}">Name error
+                                    </div>
+                                </div>
+                                <div class="spacing-col col-12">
+                                    <a th:href="@{/eventApplications}" class="back-btn" type="submit">Назад</a>
+                                    <button type="submit" class="primary-btn">
+                                        Сохранить
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/data-table/jquery.dataTables.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

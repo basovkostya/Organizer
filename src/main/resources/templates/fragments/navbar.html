@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+<div class="header-container fixed-top" th:fragment="header">
+    <header class="header navbar navbar-expand-sm expand-header">
+        <div class="header-left d-flex">
+            <div class="logo">
+                S-Organizer
+            </div>
+            <a href="#" class="sidebarCollapse" id="toggleSidebar" data-placement="bottom">
+                <span class="fas fa-bars"></span>
+            </a>
+        </div>
+        <ul class="navbar-item flex-row ml-auto">
+            <li class="nav-item dropdown user-profile-dropdown">
+                <a href="" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
+                    <img th:src="@{/img/icons/bell.png}" alt="notifications" class="icon">
+                    <p class="count">5</p>
+                </a>
+                <ul class="dropdown-menu" style="right:auto; left: auto;">
+                    <li><a class="dropdown-item" href="#">Уведомления</a></li>
+                    <li><a class="dropdown-item" href="#">Закрыть</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown user-profile-dropdown">
+                <a href="" class="nav-link user" id="Profile" data-bs-toggle="dropdown">
+                    <img th:src="@{/img/icons/user.png}" alt="notifications" class="icon">
+                </a>
+                <ul class="dropdown-menu" style="right:auto; left: auto;">
+                    <li><a class="dropdown-item" href="#">Выйти</a></li>
+                    <li><a class="dropdown-item" href="#">Закрыть</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+</div>
+</body>
+</html>

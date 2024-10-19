@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="sidebar" class="left-menu">
+    <div class="menubar-content">
+        <nav class="animated bounceInDown">
+            <ul id="sidebar" class="sidebar-nav">
+                <li class="sub-menu sidebar-item">
+                    <a href="/"><i class="fa-solid fa-house"></i>Главная
+                    </a>
+                </li>
+                <li class="sub-menu sidebar-item">
+                    <a th:href="@{/corporation}"><i class="fa-solid fa-door-open"></i>Кабинет корпорации
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#employees"
+                       aria-expanded="false"
+                       aria-controls="employees"><i class="fa-solid fa-users-gear"></i>Сотрудники</a>
+                    <ul id="employees" class="left-menu-dp sidebar-dropdown list-unstyled collapse"
+                        data-bs-parent="#sidebar">
+                        <li class="sidebar-sub-item"><a th:href="@{/employees}" class="sidebar-link"><i class="fas fa-users"></i></i>Сотрудники</a>
+                        </li>
+                        <li class="sidebar-sub-item"><a th:href="@{/employeeAddApplications}" class="sidebar-link"><i class="fa-solid fa-user-plus"></i></i>Заявка
+                            на создание</a>
+                        </li>
+                        <li class="sidebar-sub-item"><a th:href="@{/employeeDeleteApplications}" class="sidebar-link"><i class="fa-solid fa-user-minus"></i></i>Заявка
+                            на удаление</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="/eventApplications"><i class="fa fa-calendar-day"></i>Мероприятия</a>
+                </li>
+                <li class="">
+                    <a href="/clubApplications"><i class="fas fa-object-group"></i>Клубы</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+<!--<script src="js/jquery.min.js"></script>-->
+<!--<script src="js/bootstrap/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+<!--<script>-->
+<!--    $('#sidebar li').on('click' , function() {-->
+<!--    $('#sidebar li.active').removeClass('active');-->
+<!--    $(this).addClass('active');-->
+<!--});-->
+<!--</script>-->
+</body>
+</html>
